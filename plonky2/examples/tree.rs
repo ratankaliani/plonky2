@@ -25,7 +25,7 @@ fn verify_all_leaves<
         }
         Ok(())
 }
-/// An example of using Plonky2 to verify all leaves of a Merkle tree.
+/// Verify all leaves using merkle tree library
 fn main() -> Result<()> {
     const D: usize = 2;
     type C = PoseidonGoldilocksConfig;
