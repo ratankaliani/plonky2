@@ -6,6 +6,9 @@ use plonky2::plonk::config::{GenericConfig, PoseidonGoldilocksConfig};
 use plonky2::hash::hash_types::RichField;
 use plonky2::hash::merkle_tree::MerkleTree;
 use plonky2::hash::merkle_proofs::verify_merkle_proof_to_cap;
+use plonky2::plonk::circuit_builder::CircuitBuilder;
+use plonky2::plonk::circuit_data::CircuitConfig;
+use sha2::Sha256;
 fn random_data<F: RichField>(n: usize, k: usize) -> Vec<Vec<F>> {
     (0..n).map(|_| F::rand_vec(k)).collect()
 }
@@ -45,6 +48,13 @@ fn main() -> Result<()> {
             .collect::<Vec<_>>()
             .join(", ")
     );
+
+    let config = CircuitConfig::standard_recursion_config();
+    let mut builder = CircuitBuilder::<F, D>::new(config);
+
+
+    let leaves_constraint = builder.add_virtual_target_arr();
+
 
     Ok(())
 }
